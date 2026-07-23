@@ -1980,8 +1980,8 @@
                                 <i class="fas fa-user"></i>
                             </div>
                             <div>
-                                <p class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-0.5">Manager</p>
-                                <p class="text-2xl font-bold text-slate-800">김도훈 매니저</p>
+                                <p class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-0.5" id="rep-title">매니저</p>
+                                <p class="text-2xl font-bold text-slate-800" id="rep-name">김도훈 매니저</p>
                             </div>
                         </div>
 
@@ -1994,7 +1994,7 @@
                             </div>
                             <div>
                                 <p class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-0.5">Email</p>
-                                <p class="text-xl font-medium text-slate-700">dh.kim@nice.co.kr</p>
+                                <p class="text-xl font-medium text-slate-700" id="rep-email">dh.kim@nice.co.kr</p>
                             </div>
                         </div>
 
@@ -2005,7 +2005,18 @@
                             </div>
                             <div>
                                 <p class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-0.5">Tel</p>
-                                <p class="text-xl font-medium text-slate-700">02-3215-2823</p>
+                                <p class="text-xl font-medium text-slate-700" id="rep-tel">02-3215-2823</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-5">
+                            <div
+                                class="w-12 h-12 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center text-xl">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <div>
+                                <p class="text-slate-400 text-xs font-bold uppercase tracking-wider mb-0.5">Mobile</p>
+                                <p class="text-xl font-medium text-slate-700" id="rep-mobile">010-2526-8716</p>
                             </div>
                         </div>
                     </div>
@@ -2047,7 +2058,9 @@
             </style>
         </div>
 
-    </div>async function downloadPDF() {
+    </div>
+    <script>
+        async function downloadPDF() {
     const element = document.querySelector('.slide-container');
     const options = {
     margin: 0,
@@ -2072,6 +2085,7 @@
     btn.innerHTML = originalText;
     }
     }
+    </script>
 
     
     <div id="lightbox" role="dialog" aria-modal="true">
@@ -2178,6 +2192,35 @@
             document.addEventListener('keydown', e => {
                 if (e.key === 'Escape') close();
             });
+        })();
+
+        /* ==========================================================
+           담당자 링크 분기: index.html?rep=코드 로 접속하면
+           문의 슬라이드의 담당자 정보가 자동으로 바뀝니다.
+           아래 REPS 객체에 담당자를 추가/수정하세요.
+           ========================================================== */
+        const REPS = {
+            default: { title: '매니저', name: '김도훈 매니저', email: 'dh.kim@nice.co.kr', tel: '02-3215-2823', mobile: '010-2526-8716' },
+            ju:      { title: '실장', name: '주시태 실장',   email: 'hi7hi7@nice.co.kr', tel: '02-3215-2820', mobile: '010-2979-9758' },
+            ryu:     { title: '팀장', name: '류호준 팀장',   email: 'hjryu@nice.co.kr',  tel: '02-3215-2842', mobile: '010-5054-5306' },
+            choi:    { title: '팀장', name: '최진규 팀장',   email: 'jkchoi@nice.co.kr', tel: '02-3215-2821', mobile: '010-8666-6389' },
+            kim:     { title: '매니저', name: '김도훈 매니저', email: 'dh.kim@nice.co.kr', tel: '02-3215-2823', mobile: '010-2526-8716' },
+            woo:     { title: '매니저', name: '우종현 매니저', email: 'jhwoo@nice.co.kr',  tel: '02-3215-2812', mobile: '010-3493-3550' },
+        };
+
+        (function () {
+            const code = new URLSearchParams(location.search).get('rep');
+            const rep = REPS[code] || REPS.default;
+            const elTitle = document.getElementById('rep-title');
+            const elName = document.getElementById('rep-name');
+            const elEmail = document.getElementById('rep-email');
+            const elTel = document.getElementById('rep-tel');
+            const elMobile = document.getElementById('rep-mobile');
+            if (elTitle) elTitle.textContent = rep.title;
+            if (elName) elName.textContent = rep.name;
+            if (elEmail) elEmail.textContent = rep.email;
+            if (elTel) elTel.textContent = rep.tel;
+            if (elMobile) elMobile.textContent = rep.mobile;
         })();
 
         // 초기 실행
