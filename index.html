@@ -1940,7 +1940,7 @@
                 }
 
                 .animate-scroll {
-                    animation: scroll 40s linear infinite;
+                    animation: scroll 20s linear infinite;
                 }
 
                 .group:hover .animate-scroll {
@@ -1967,7 +1967,7 @@
                     데이터 도입 문의
                 </h2>
                 <p class="text-xl text-slate-500 mb-10 max-w-2xl mx-auto leading-relaxed font-medium">
-                    최고의 효율을 전달 드리는 기업이 되겠습니다.<br>
+                    데이터로 증명된 파트너, NICE지니데이타가 함께하겠습니다.<br>
                     궁금한 점이 있으시면 언제든 편하게 문의해 주세요.
                 </p>
 
@@ -2197,42 +2197,20 @@
         /* ==========================================================
            담당자 링크 분기: index.html?rep=코드 로 접속하면
            문의 슬라이드의 담당자 정보가 자동으로 바뀝니다.
-
-           ▶ 새 담당자 추가 규칙 (겹침 방지):
-             PEOPLE 객체에 "성 로마자 + 이름 각 글자 첫소리"로 키를 만드세요.
-             예) 김도훈 -> kimdh (kim + 도d + 훈h)
-                 최준호 -> choijh (choi + 준j + 호h)
-             성이 같아도 이름 이니셜까지 같이 보면 웬만해선 안 겹칩니다.
-             (그래도 겹치면 kimdh2 처럼 숫자만 붙이면 됩니다.)
-
-           ▶ ALIASES는 예전에 이미 뿌린 링크(ju, choi, kimdohun 등)가
-             계속 동작하게 해주는 하위호환용입니다. 새로 추가할 땐
-             건드릴 필요 없습니다.
+           아래 REPS 객체에 담당자를 추가/수정하세요.
            ========================================================== */
-        const PEOPLE = {
-            kimdh:   { title: '매니저', name: '김도훈 매니저', email: 'dh.kim@nice.co.kr', tel: '02-3215-2823', mobile: '010-2526-8716' },
-            just:    { title: '실장',   name: '주시태 실장',   email: 'hi7hi7@nice.co.kr',  tel: '02-3215-2820', mobile: '010-2979-9758' },
-            ryuhj:   { title: '팀장',   name: '류호준 팀장',   email: 'hjryu@nice.co.kr',   tel: '02-3215-2842', mobile: '010-5054-5306' },
-            choijg:  { title: '팀장',   name: '최진규 팀장',   email: 'jkchoi@nice.co.kr',  tel: '02-3215-2821', mobile: '010-8666-6389' },
-            woojh:   { title: '매니저', name: '우종현 매니저', email: 'jhwoo@nice.co.kr',   tel: '02-3215-2812', mobile: '010-3493-3550' },
-            choijh:  { title: '실장',   name: '최준호 실장',   email: 'jh.choi@nice.co.kr', tel: '02-3215-2851', mobile: '010-2738-6325' },
-            // 새 담당자 추가 예시:
-            // leesj: { title: '매니저', name: '이수진 매니저', email: '...', tel: '...', mobile: '...' },
-        };
-
-        const ALIASES = {
-            default: 'kimdh',
-            // 짧은 옛 링크
-            kim: 'kimdh', ju: 'just', ryu: 'ryuhj', choi: 'choijg', woo: 'woojh', jhchoi: 'choijh',
-            // 풀네임 옛 링크
-            kimdohun: 'kimdh', jusitae: 'just', ryuhojun: 'ryuhj', choijingyu: 'choijg',
-            woojonghyun: 'woojh', choijunho: 'choijh',
+        const REPS = {
+            default: { title: '매니저', name: '김도훈 매니저', email: 'dh.kim@nice.co.kr', tel: '02-3215-2823', mobile: '010-2526-8716' },
+            ju:      { title: '실장', name: '주시태 실장',   email: 'hi7hi7@nice.co.kr', tel: '02-3215-2820', mobile: '010-2979-9758' },
+            ryu:     { title: '팀장', name: '류호준 팀장',   email: 'hjryu@nice.co.kr',  tel: '02-3215-2842', mobile: '010-5054-5306' },
+            choi:    { title: '팀장', name: '최진규 팀장',   email: 'jkchoi@nice.co.kr', tel: '02-3215-2821', mobile: '010-8666-6389' },
+            kim:     { title: '매니저', name: '김도훈 매니저', email: 'dh.kim@nice.co.kr', tel: '02-3215-2823', mobile: '010-2526-8716' },
+            woo:     { title: '매니저', name: '우종현 매니저', email: 'jhwoo@nice.co.kr',  tel: '02-3215-2812', mobile: '010-3493-3550' },
         };
 
         (function () {
             const code = new URLSearchParams(location.search).get('rep');
-            const key = PEOPLE[code] ? code : (ALIASES[code] || ALIASES.default);
-            const rep = PEOPLE[key] || PEOPLE[ALIASES.default];
+            const rep = REPS[code] || REPS.default;
             const elTitle = document.getElementById('rep-title');
             const elName = document.getElementById('rep-name');
             const elEmail = document.getElementById('rep-email');
